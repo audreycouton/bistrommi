@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+{% block title %}modifier une formule{% endblock %}
+{% block content %}
+<div class="container">
+  <h1 class="bg-primary text-white p-4">
+    <i class="las la-angle-double-right"></i>
+    Éditer une formule
+  </h1>
+  <form action="{{ url( '/backoffice/formules/editer/' ~ formula.id ) }}" method="POST" enctype="multipart/form-data">
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nom :</label>
+      <div class="col-6">
+        <input type="text" name="name" class="form-control" value="{{ formula.name }}" />
+      </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-2 col-form-label">Description</label>
+    <div class="col-8">
+      <textarea name="description" rows="4" class="form-control" value="{{ formula.description }}">{{ formula.description }}</textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Prix</label>
+    <div class="col-8">
+      <input type="number"  name="price" min="0" max="100" class="form-control" value="{{ formula.price }}"></input>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Promotion</label>
+    <div class="col-8">
+    <input type="number"  name="discount" min="0" max="100" class="form-control"value="{{ formula.discount }}">
+    </div>
+  </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Illustration</label>
+      <div class="col-8">
+        <div class="custom-file">
+          <input name="illustration" type="file" class="custom-file-input" id="postIllustration">
+          <label class="custom-file-label" for="postIllustration" data-browse="Parcourir ...">Choisir une
+            illustration</label>
+        </div>
+        <img id="imageResult" src="{{ asset( '/img/illustrations/' ~ formula.illustration ) }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+      </div>
+    </div>
+    {#<div class="form-group row">
+      <label class="col-2 col-form-label">Auteur :</label>
+      <div class="col-8">
+        <select name="user_id" class="custom-select">
+          {% for user in users %}
+          <option value="{{ user.id }}" {% if user.id==post.user_id %}selected{% endif %}>{{ user.display_name }}
+          </option>#}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-2">
+        <button class="btn btn-primary">
+          <i class="far fa-save"></i>
+          Mettre à jour les modifications
+        </button>
+        <a href="{{ url( '/backoffice/formules') }}" class="btn btn-link text-black-50">
+          <i class="las la-reply"></i>
+          Annuler
+        </a>
+      </div>
+    </div>
+  </form>
+</div> <!-- # END .container #-->
+{% endblock %}
+{% block additional_js %}
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+
+  // afficher une image avant l'upload
+  $('#postIllustration').addEventListener('change', function() {
+    let input = this;
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function(e) {
+        $('#imageResult').setAttribute('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+
+  // compteur des caractères saisis
+  $('#content_word_count').innerHTML = $('[name="content"]').value.length;
+  $('[name="content"]').addEventListener('keydown', function() {
+    $('#content_word_count').innerHTML = this.value.length;
+  });
+});
+</script>
+{% endblock %}

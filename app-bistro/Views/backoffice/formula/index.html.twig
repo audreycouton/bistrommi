@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+{% block title %}liste des formules{% endblock %}
+{% block content %}
+<div class="container">
+<h1 class="display-2">Liste des formules</h1>
+<a href="{{ url( '/backoffice/formules/ajouter' ) }}" class="btn btn-secondary btn-sm m-4">
+  <i class="fas fa-plus-circle"></i>
+  Ajouter un nouvel article
+</a>
+<p>Voici la liste des <b>{{ formula.length }}</b> formules publiés :</p>
+<ul>
+  {% for formula in formulas %}
+  <li>
+    <h2>
+      <small>[#{{ formula.id }}]</small>
+      <span class="title"> {{ formula.name }}</span>
+      <small> le <span class="date">{{ formula.created_at|date( 'd/m/Y' ) }} </span>
+      </small>
+      <a href="{{ url( '/backoffice/formules/effacer/' ) ~ formula.id }}" class="btn btn-outline-danger
+        btn-sm" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette formule ?'));"><i class="far fa-trash-alt">
+        </i> Effacer</a>
+      <a href="{{ url( '/backoffice/formules/editer/' ) ~ formula.id }}" class="btn btn-outline-primary btn-sm">
+        <i class="far fa-edit"></i>
+        éditer
+      </a>
+    </h2>
+    <img src="{{ asset( '/img/illustrations/' ~ formula.illustration ) }}" class="img-thumbnail rounded">
+ 
+  </li>
+  {% endfor %}
+</ul>
+
+</div> <!-- # END .container #-->
+{% endblock %}

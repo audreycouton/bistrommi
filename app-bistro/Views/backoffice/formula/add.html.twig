@@ -1,0 +1,97 @@
+{% extends 'layoutformula.html.twig' %}
+{% block title %}Ajouter une formule{% endblock %}
+{% block content %}
+<h1>Ajouter une nouvelle formule</h1>
+<form enctype="multipart/form-data" method="POST">
+<div class="container">
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Nom</label>
+    <div class="col-6">
+      <input type="text" name="name" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Description</label>
+    <div class="col-8">
+      <textarea name="description" rows="4" class="form-control"></textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Prix</label>
+    <div class="col-8">
+      <input type="number"  name="price" min="0" max="100" class="form-control"></input>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Promotion</label>
+    <div class="col-8">
+    <input type="number"  name="discount" min="0" max="100" class="form-control">
+    </div>
+  </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Illustration</label>
+      <div class="col-8">
+        <div class="custom-file">
+          <input name="illustration" type="file" class="custom-file-input" id="postIllustration">
+          <label class="custom-file-label" for="postIllustration" data-browse="Parcourir ...">Choisir une
+            illustration</label>
+        </div>
+        <img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+      </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-2 col-form-label">enabled</label>
+    <div class="col-8">
+      <input type="checkbox"  name="enabled"  class="form-control"></input>
+    </div>
+  </div>
+
+<div class="form-group row">
+    <label class="col-2 col-form-label">Creer</label>
+    <div class="col-6">
+      <input type="date" name="created_at" class="form-control" />
+    </div>
+  </div>
+    <div class="form-group row">
+      <div class="offset-2">
+        <button class="btn btn-primary">
+          <i class="far fa-save"></i>
+          Enregistrer
+        </button>
+        <a href="{{ url( '/posts') }}" class="btn btn-link text-black-50">
+          <i class="las la-reply"></i>
+          Annuler
+        </a>
+      </div>
+    </div>
+  </form>
+</div> <!-- # END .container #-->
+{% endblock %}
+{% block additional_js %}
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+
+  // afficher une image avant l'upload
+  $('#postIllustration').addEventListener('change', function() {
+    let input = this;
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function(e) {
+        $('#imageResult').setAttribute('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+
+  // compteur des caractères saisis
+  $('[name="content"]').addEventListener('keydown', function() {
+    $('#content_word_count').innerHTML = this.value.length;
+  });
+});
+</script>
+{% endblock %}
+
+
+
+ 

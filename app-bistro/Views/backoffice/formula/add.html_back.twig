@@ -1,0 +1,53 @@
+{% extends 'layoutformula.html.twig' %}
+{% block title %}ajout d'une formule{% endblock %}
+{% block content %}
+<div class="container">
+<div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+<div class="wrapper wrapper--w960">
+<div class="card card-2">
+<div class="card-heading"></div>
+<div class="card-body">
+                    <h2 class="title">Ajouter une formule</h2>
+                    <form action="{{ url( '/backoffice/formula/ajouter') }}" method="GET" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Nom" name="name">
+                        </div>
+                        <div class="row row-space">
+                            <div class="input--style-2">
+                                <div class="">
+                                    <textarea placeholder="Description" name="description" rows="3" class="form-control input--style-2"></textarea>
+                                    <small class="form-text text-muted"><span id="content_word_count">0</span> caractères</small>
+                                </div>
+                            </div>
+                            <div class="col-2 input--style-2 ">
+                                <div class="input-group">
+                                    <input placeholder="Prix" type="number"  name="price" min="0" max="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                          <input placeholder="Promotion" type="number"  name="discount" min="0" max="100">
+                        </div>
+               
+                
+                        <div class="p-t-30">
+                            <button class="btn btn--radius btn--green" type="submit">Enregistrer</button>
+                            <a href="{{ url( '/') }}" class="btn btn-link text-black-50">Annuler</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div></div></div></div></div>
+{% endblock %}
+{% block additional_js %}
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+
+  // compteur des caractères saisis
+  $('[name="content"]').addEventListener('keydown', function() {
+    $('#content_word_count').innerHTML = this.value.length;
+  });
+});
+</script>
+{% endblock %}
